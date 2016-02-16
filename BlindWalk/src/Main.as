@@ -3,6 +3,7 @@ package
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
 	
 	/**
 	 * ...
@@ -20,16 +21,27 @@ package
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			addEventListener(KeyboardEvent.KEY_DOWN, Spatie);
+			introScreen = new IntroScreen();
+			addChild(introScreen);
+			introScreen.addEventListener(IntroScreen.CHOOSE_GAME, startGame);
 		}
 		
-		private function Spatie(E:KeyboardEvent):void 
+		private function startGame(e:Event):void
 		{
-			if (keyCode == 32) 
+			removeChild(introScreen);
+			chooseScreen = new ModeScreen();
+			addChild(chooseScreen);
+			chooseScreen.addEventListener(ModeScreen.START_GAME, startGame);
+						
+		}
+		
+		/*private function Spatie(E:KeyboardEvent):void 
+		{
+			if (E.keyCode == 32) 
 			{
 				
 			}
-		}
+		}*/
 	}
 	
 }
