@@ -1,7 +1,9 @@
-package src
+package Screens
 {
 	import flash.text.TextField;
-
+	import Screens.Screen;
+	import flash.events.KeyboardEvent;
+	
 	
 	/**
 	 * ...
@@ -15,7 +17,8 @@ package src
 		
 		public function IntroScreen() 
 		{
-			this.addEventListener(Event.ADDED_TO_STAGE, init);
+			if (stage) init();
+			else addEventListener(Event.ADDED_TO_STAGE, init);
 			
 		}
 		
