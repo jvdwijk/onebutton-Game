@@ -1,12 +1,13 @@
 package Screens
 {
+	import flash.display.MovieClip;
 	import flash.text.TextFormat;
 	
 	/**
 	 * ...
 	 * @author J vd Wijk
 	 */
-	public class Screen
+	public class Screen extends MovieClip
 	{
 	protected var textForm:TextFormat;
 	protected var subForm:TextFormat;

@@ -6,6 +6,7 @@ package
 	import flash.ui.Keyboard;
 	import Screens.IntroScreen;
 	import Screens.GameScreen;
+	import flash.display.MovieClip;
 	
 	/**
 	 * ...
@@ -13,7 +14,8 @@ package
 	 */
 	public class Main extends Sprite 
 	{
-		private var introscreen:IntroScreen;
+		private var introScreen:IntroScreen;
+		private var gameScreen:GameScreen;
 		
 		public function Main() 
 		{
@@ -26,15 +28,15 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			introScreen = new IntroScreen();
 			addChild(introScreen);
-			//introScreen.addEventListener(IntroScreen.CHOOSE_GAME, startGame);
+			introScreen.addEventListener(IntroScreen.START_GAME, startGame);
 		}
-		/*
+		
 		private function startGame(e:Event):void
 		{
 			removeChild(introScreen);
-			chooseScreen = new GameScreen();
-			addChild(chooseScreen);
-			chooseScreen.addEventListener(ModeScreen.START_GAME, startGame);
+			gameScreen = new GameScreen();
+			addChild(gameScreen);
+			//gameScreen.addEventListener(GameScreen.START_GAME, startGame);
 						
 		}
 		
@@ -44,7 +46,7 @@ package
 			{
 				
 			}
-		}*/
+		}
 	}
 	
 }

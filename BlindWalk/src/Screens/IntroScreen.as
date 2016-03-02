@@ -1,8 +1,13 @@
 package Screens
 {
 	import flash.text.TextField;
+	import flash.text.TextFormat;
+	import flash.text.TextFieldAutoSize;
 	import Screens.Screen;
 	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
+	import flash.display.MovieClip;
+	import flash.events.Event;
 	
 	
 	/**
@@ -14,15 +19,15 @@ package Screens
 		private var introtext:TextField;
 		private var start:TextField;
 		
+		public static const START_GAME:String = "Start Game!";
 		
 		public function IntroScreen() 
 		{
-			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init);
+			this.addEventListener(Event.ADDED_TO_STAGE, init);
 			
 		}
 		
-		private function init() 
+		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
@@ -30,10 +35,10 @@ package Screens
 			introtext.embedFonts = true;
 			introtext.text = "Pong";
 			introtext.autoSize = TextFieldAutoSize.CENTER;			
-			introtext.setTextFormat(textFormat);		
+			introtext.setTextFormat(textForm);		
 			
-			introtext.x = stage.stageWidth / 2 - title.textWidth /2;
-			introtext.y = stage.stageHeight / 2 - title.textHeight /2;
+			introtext.x = stage.stageWidth / 2 - introtext.textWidth /2;
+			introtext.y = stage.stageHeight / 2 - introtext.textHeight /2;
 			
 			introtext.mouseEnabled = false;
 			
@@ -43,7 +48,7 @@ package Screens
 			start.embedFonts = true;
 			start.text = "press space to start";
 			start.autoSize = TextFieldAutoSize.CENTER;
-			start.setTextFormat(subFormat)
+			start.setTextFormat(subForm)
 			
 			start.x = stage.stageWidth / 2 - start.textWidth / 2;
 			start.y = stage.stageHeight / 2 + 20;
@@ -52,7 +57,6 @@ package Screens
 			
 			addChild(start);
 			
-			start.addEventListener(Event.ENTER_FRAME, loop);
 			
 			
 			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
@@ -61,10 +65,9 @@ package Screens
 		private function onKeyUp(e:KeyboardEvent):void 
 		{
 			if (e.keyCode == Keyboard.SPACE) 
-			{
-				start.removeEventListener(Event.ENTER_FRAME, loop);		
+			{	
 				stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
-				dispatchEvent(new Event(CHOOSE_GAME));
+				dispatchEvent(new Event(START_GAME));
 				
 			}
 		}
