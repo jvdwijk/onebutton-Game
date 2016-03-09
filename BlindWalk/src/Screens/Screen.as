@@ -17,16 +17,16 @@ package Screens
 		{
 			textForm = new TextFormat();
 			textForm.size = 60;
-			textForm.color = 0xffffff;
+			textForm.color = 0xFF9900;
 			
 			
 			subForm = new TextFormat();
 			subForm.size = 20;
-			subForm.color = 0xff0000;
+			subForm.color = 0xFF9900;
 			
 			scoreForm = new TextFormat();
 			scoreForm.size = 40;
-			scoreForm.color = 0xffffff;
+			scoreForm.color = 0xFF9900;
 		}
 		
 	}
