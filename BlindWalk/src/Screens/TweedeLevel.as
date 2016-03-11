@@ -4,6 +4,7 @@ package Screens
 	import flash.display.MovieClip;
 	import Actors.player;
 	import flash.events.Event;
+	import Actors.BewegendPlatform;
 	/**
 	 * ...
 	 * @author J vd Wijk
@@ -15,6 +16,7 @@ package Screens
 		private var platformlopen:Platform = new Platform;
 		private var platformlopen2:Platform = new Platform;
 		public var onGround:Boolean = false;
+		private var beweging:BewegendPlatform = new BewegendPlatform;
 		
 		public function TweedeLevel() 
 		{
@@ -22,25 +24,25 @@ package Screens
 			addChild(levelTwee);
 			addChild(platformlopen);
 			addChild(platformlopen2);
+			addChild(beweging);
 			
 			levelTwee.x = 400;
 			levelTwee.y = 405;
 			
 			platformlopen.x = -200;
 			platformlopen2.x = 1000;
+			beweging.x = 300;
 			
 			addEventListener(Event.ENTER_FRAME, loop);
 			
 			function loop(e:Event):void
 			{
-				trace(onGround);
-				if (thePlayer.hitTestObject(platformlopen) || thePlayer.hitTestObject(platformlopen2)) 
+				if (thePlayer.hitTestObject(platformlopen) || thePlayer.hitTestObject(platformlopen2) || thePlayer.hitTestObject(beweging)) 
 				{
 					onGround = true;
 				}
 				else
 				{
-					trace("hgf");
 					onGround = false;
 				}
 			}

@@ -21,6 +21,7 @@ package
 		private var gameScreen:GameScreen;
 		private var leveltwee:TweedeLevel;
 		private var gameOver:GameOverScreen;
+		private var playerclass:player = new player();
 		
 		
 		public function Main() 
@@ -45,16 +46,17 @@ package
 			gameScreen.addEventListener(player.NEXT_LEVEL, goToLevel1);
 		}
 		
-		private function goToLevel1(e:Event):void 
+		private function goToLevel1(e:Event = null):void 
 		{
 			removeChild(gameScreen);
 			leveltwee = new TweedeLevel();
 			addChild(leveltwee);
-			player.addEventListener(player.GAME_OVER, getGameOverScreen);
+			leveltwee.addEventListener(player.GAME_OVER, getGameOverScreen);
 			//TweedeLevel.addEventListener(TweedeLevel.NEXT_LEVEL, goToLevel1);
 		}
 		private function getGameOverScreen(e:Event):void
 		{
+			trace("tre");
 			removeChild(leveltwee);
 			gameOver = new GameOverScreen();
 			addChild(gameOver);

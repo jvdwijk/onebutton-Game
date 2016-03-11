@@ -2,7 +2,6 @@ package Screens
 {
 	import flash.display.MovieClip;
 	import Actors.player;
-	import Actors.Spikes;
 	import Actors.Platform;
 	import flash.events.Event;
 	

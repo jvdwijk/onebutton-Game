@@ -20,16 +20,16 @@ package Screens
 		public function GameOverScreen() 
 		{
 			this.addEventListener(Event.ADDED_TO_STAGE, init);
-			
-			init(e:Event):void
-			{
-				removeEventListener(Event.ADDED_TO_STAGE, init);
-				
-				addchild(gameOverScreen);
-				gameOverScreen.x = stage.stageWidth / 2;
-				gameOverScreen.y = stage.stageHeight / 2;
-			}
 		}
+			
+		private function init(e:Event):void
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			addChild(gameOverScreen);
+			gameOverScreen.x = stage.stageWidth / 2;
+			gameOverScreen.y = stage.stageHeight / 2;
+		}
+		
 		
 	}
 

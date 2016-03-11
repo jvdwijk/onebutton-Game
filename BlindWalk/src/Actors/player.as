@@ -102,10 +102,10 @@ package Actors
 				
 				
 				
-				if (speler.y >= 450)
+				if (speler.y >= 130)
 				{
 					removeEventListener(Event.ENTER_FRAME, loop);
-					dispatchEvent(new Event(GAME_OVER));
+					dispatchEvent(new Event(GAME_OVER, true));
 				}
 			}
 		}
