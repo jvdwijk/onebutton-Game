@@ -4,6 +4,7 @@ package
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
+	import Screens.GameOverScreen;
 	import Screens.IntroScreen;
 	import Screens.GameScreen;
 	import Actors.player;
@@ -19,6 +20,7 @@ package
 		private var introScreen:IntroScreen;
 		private var gameScreen:GameScreen;
 		private var leveltwee:TweedeLevel;
+		private var gameOver:GameOverScreen;
 		
 		
 		public function Main() 
@@ -48,7 +50,15 @@ package
 			removeChild(gameScreen);
 			leveltwee = new TweedeLevel();
 			addChild(leveltwee);
-			//gameScreen.addEventListener(GameScreen.NEXT_LEVEL, goToLevel1);
+			player.addEventListener(player.GAME_OVER, getGameOverScreen);
+			//TweedeLevel.addEventListener(TweedeLevel.NEXT_LEVEL, goToLevel1);
+		}
+		private function getGameOverScreen(e:Event):void
+		{
+			removeChild(leveltwee);
+			gameOver = new GameOverScreen();
+			addChild(gameOver);
+			
 		}
 	}
 	

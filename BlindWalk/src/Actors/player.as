@@ -21,6 +21,7 @@ package Actors
 		
 		
 		public static const NEXT_LEVEL:String = "Next Level!";
+		public static const GAME_OVER:String = "Game Over!";
 		
 		public function player()
 		{
@@ -70,6 +71,12 @@ package Actors
 					{
 						var gameScreen:GameScreen = parentvar as GameScreen;
 						
+						if (speler.x >= 789)
+						{
+							removeEventListener(Event.ENTER_FRAME, loop);
+							dispatchEvent(new Event(NEXT_LEVEL, true));
+						}
+						
 						if (gameScreen.onGround == false)
 						{
 							gravity = 3;
@@ -84,24 +91,22 @@ package Actors
 						var tweedeLevel:TweedeLevel = parentvar as TweedeLevel;
 						if (tweedeLevel.onGround == false)
 						{
-							trace("sda");
 							gravity = 3;
 						}
 						else
 						{
-							trace("qwe");
 							gravity = 0;
 						}
 					}
 				}
 				
-				if (speler.x >= 789)
+				
+				
+				if (speler.y >= 450)
 				{
 					removeEventListener(Event.ENTER_FRAME, loop);
-					dispatchEvent(new Event(NEXT_LEVEL, true));
+					dispatchEvent(new Event(GAME_OVER));
 				}
-				
-				if(speler.y )
 			}
 		}
 	}
