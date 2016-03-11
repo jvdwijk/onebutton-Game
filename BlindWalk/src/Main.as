@@ -6,7 +6,9 @@ package
 	import flash.ui.Keyboard;
 	import Screens.IntroScreen;
 	import Screens.GameScreen;
+	import Actors.player;
 	import flash.display.MovieClip;
+	import Screens.TweedeLevel;
 	
 	/**
 	 * ...
@@ -16,6 +18,8 @@ package
 	{
 		private var introScreen:IntroScreen;
 		private var gameScreen:GameScreen;
+		private var leveltwee:TweedeLevel;
+		
 		
 		public function Main() 
 		{
@@ -36,16 +40,15 @@ package
 			removeChild(introScreen);
 			gameScreen = new GameScreen();
 			addChild(gameScreen);
-			//gameScreen.addEventListener(GameScreen.START_GAME, startGame);
-						
+			gameScreen.addEventListener(player.NEXT_LEVEL, goToLevel1);
 		}
 		
-		private function Spatie(E:KeyboardEvent):void 
+		private function goToLevel1(e:Event):void 
 		{
-			if (E.keyCode == 32) 
-			{
-				
-			}
+			removeChild(gameScreen);
+			leveltwee = new TweedeLevel();
+			addChild(leveltwee);
+			//gameScreen.addEventListener(GameScreen.NEXT_LEVEL, goToLevel1);
 		}
 	}
 	
