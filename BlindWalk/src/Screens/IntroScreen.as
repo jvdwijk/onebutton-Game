@@ -13,7 +13,7 @@ package Screens
 	 * ...
 	 * @author J vd Wijk
 	 */
-	public class IntroScreen extends Screen 
+	public class IntroScreen extends MovieClip 
 	{
 		
 		private var startImg:MovieClip = new IntroSchermImg();
