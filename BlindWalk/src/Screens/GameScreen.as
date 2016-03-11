@@ -24,7 +24,6 @@ package Screens
 		{
 			addChild(thePlayer);
 			addChild(levelEen);
-			//addChild(hetPlatform);
 			
 			levelEen.x = 400;
 			levelEen.y = 405;

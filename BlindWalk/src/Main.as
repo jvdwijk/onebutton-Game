@@ -7,6 +7,7 @@ package
 	import Screens.GameOverScreen;
 	import Screens.IntroScreen;
 	import Screens.GameScreen;
+	import Screens.WinScherm;
 	import Actors.player;
 	import flash.display.MovieClip;
 	import Screens.TweedeLevel;
@@ -21,6 +22,7 @@ package
 		private var gameScreen:GameScreen;
 		private var leveltwee:TweedeLevel;
 		private var gameOver:GameOverScreen;
+		private var wonGame:WinScherm;
 		private var playerclass:player = new player();
 		
 		
@@ -34,6 +36,9 @@ package
 		{
 			if (gameOver != null) {
 				removeChild(gameOver);
+			}
+			if (wonGame != null) {
+				removeChild(wonGame);
 			}
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			introScreen = new IntroScreen();
@@ -55,11 +60,19 @@ package
 			leveltwee = new TweedeLevel();
 			addChild(leveltwee);
 			leveltwee.addEventListener(player.GAME_OVER, getGameOverScreen);
-			//TweedeLevel.addEventListener(TweedeLevel.NEXT_LEVEL, goToLevel1);
+			leveltwee.addEventListener(player.END_GAME, endTheGame);
 		}
+		
+		private function endTheGame(e:Event):void
+		{
+			removeChild(leveltwee);
+			wonGame = new WinScherm();
+			addChild(wonGame);
+			wonGame.addEventListener(WinScherm.START_AGAIN, init)
+		}
+		
 		private function getGameOverScreen(e:Event):void
 		{
-			trace("tre");
 			removeChild(leveltwee);
 			gameOver = new GameOverScreen();
 			addChild(gameOver);

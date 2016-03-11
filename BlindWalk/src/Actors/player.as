@@ -22,6 +22,7 @@ package Actors
 		
 		public static const NEXT_LEVEL:String = "Next Level!";
 		public static const GAME_OVER:String = "Game Over!";
+		public static const END_GAME:String = "End of Game!";
 		
 		public function player()
 		{
@@ -89,6 +90,13 @@ package Actors
 					if (parentvar is TweedeLevel)
 					{
 						var tweedeLevel:TweedeLevel = parentvar as TweedeLevel;
+						
+						if (speler.x >= 789)
+						{
+							removeEventListener(Event.ENTER_FRAME, loop);
+							dispatchEvent(new Event(END_GAME, true));
+						}
+						
 						if (tweedeLevel.onGround == false)
 						{
 							gravity = 3;
