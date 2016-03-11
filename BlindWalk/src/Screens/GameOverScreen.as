@@ -17,6 +17,8 @@ package Screens
 	{
 		private var gameOverScreen:GameOverScreenImg = new GameOverScreenImg;
 		
+		public static const START_OVER:String = "Start over again after death";
+		
 		public function GameOverScreen() 
 		{
 			this.addEventListener(Event.ADDED_TO_STAGE, init);
@@ -28,8 +30,19 @@ package Screens
 			addChild(gameOverScreen);
 			gameOverScreen.x = stage.stageWidth / 2;
 			gameOverScreen.y = stage.stageHeight / 2;
+			
+			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 		}
 		
+		private function onKeyUp(e:KeyboardEvent):void
+		{
+			if (e.keyCode == Keyboard.SPACE)
+			{
+				stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+				dispatchEvent(new Event(START_OVER));
+				
+			}
+		}
 		
 	}
 

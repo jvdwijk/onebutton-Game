@@ -53,7 +53,7 @@ package Actors
 			{
 				if (E.keyCode == Keyboard.SPACE)
 				{
-					speed = 20;
+					speed = 3;
 				}
 			}
 			

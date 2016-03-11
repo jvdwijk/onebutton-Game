@@ -32,6 +32,9 @@ package
 		
 		private function init(e:Event = null):void 
 		{
+			if (gameOver != null) {
+				removeChild(gameOver);
+			}
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			introScreen = new IntroScreen();
 			addChild(introScreen);
@@ -60,7 +63,7 @@ package
 			removeChild(leveltwee);
 			gameOver = new GameOverScreen();
 			addChild(gameOver);
-			
+			gameOver.addEventListener(GameOverScreen.START_OVER, init)
 		}
 	}
 	

@@ -16,6 +16,7 @@ package Screens
 		private var platformlopen:Platform = new Platform;
 		private var platformlopen2:Platform = new Platform;
 		public var onGround:Boolean = false;
+		public var pushback:Boolean = true;
 		private var beweging:BewegendPlatform = new BewegendPlatform;
 		
 		public function TweedeLevel() 
@@ -37,6 +38,7 @@ package Screens
 			
 			function loop(e:Event):void
 			{
+				//speler tegen grond #gravity
 				if (thePlayer.hitTestObject(platformlopen) || thePlayer.hitTestObject(platformlopen2) || thePlayer.hitTestObject(beweging)) 
 				{
 					onGround = true;
@@ -44,6 +46,16 @@ package Screens
 				else
 				{
 					onGround = false;
+				}
+				
+				//bewegend platform naar links en rechts
+				if (beweging.hitTestObject(platformlopen)) 
+				{
+					pushback = true;
+				}
+				else if(beweging.hitTestObject(platformlopen2))
+				{
+					pushback = false;
 				}
 			}
 		}
