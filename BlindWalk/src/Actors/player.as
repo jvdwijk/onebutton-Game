@@ -6,8 +6,12 @@ package Actors
 	import flash.events.Event;
 	import Screens.GameScreen;
 	import Screens.TweedeLevel;
+	import Screens.DerdeLevel;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
+	import flash.media.Sound;
+	import flash.net.URLRequest;
+	import flash.media.SoundMixer;
 	
 	/**
 	 * ...
@@ -18,25 +22,38 @@ package Actors
 		private var speler:blindeSpeler = new blindeSpeler;
 		private var speed:int = 3;
 		public var gravity:int = 0;
-		
+		public var level:String = "level1";	
+		public var dead:Boolean = false;
+		public var crushed:Boolean = false;
+		public var lift:Boolean = false;
+		private var liftSnelheid:int = 0;
+		private var main:Main = new Main;
+		private var backgroundSound:Sound = new Sound(new URLRequest("https://www.freesound.org/data/previews/245/245587_1897685-lq.mp3"));
 		
 		public static const NEXT_LEVEL:String = "Next Level!";
 		public static const GAME_OVER:String = "Game Over!";
+		public static const LEVEL_DRIE:String = "Next Level!";
 		public static const END_GAME:String = "End of Game!";
 		
-		public function player()
+		public function player(xpos:Number = 0, ypos:Number = 0)
 		{
 			addChild(speler);
 			speler.scaleX = 0.08;
 			speler.scaleY = 0.08;
-			this.x = 30;
-			this.y = 370;
+			this.x = xpos;
+			this.y = ypos;
+			
+			
 			
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(Event.ENTER_FRAME, loop);
 			
-			function init():void
+		}
+		
+		function init(e:Event):void
 			{
+				backgroundSound.play();
+				
 				stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 				stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			
@@ -60,10 +77,11 @@ package Actors
 			
 			function loop(e:Event):void
 			{
+				
 				var parentvar:MovieClip = parent as MovieClip;
 				
 				
-				speler.x += speed;
+				speler.x += speed + liftSnelheid;
 				speler.y += gravity;
 				
 				if (parentvar != null)
@@ -71,6 +89,9 @@ package Actors
 					if (parentvar is GameScreen)
 					{
 						var gameScreen:GameScreen = parentvar as GameScreen;
+						
+						level = "level1";
+						main.checkpoint = "level 1";
 						
 						if (speler.x >= 789)
 						{
@@ -91,10 +112,12 @@ package Actors
 					{
 						var tweedeLevel:TweedeLevel = parentvar as TweedeLevel;
 						
+						level = "level2";
+						main.checkpoint = "level 2";
 						if (speler.x >= 789)
 						{
 							removeEventListener(Event.ENTER_FRAME, loop);
-							dispatchEvent(new Event(END_GAME, true));
+							dispatchEvent(new Event(LEVEL_DRIE, true));
 						}
 						
 						if (tweedeLevel.onGround == false)
@@ -105,17 +128,41 @@ package Actors
 						{
 							gravity = 0;
 						}
+						
+						if (lift == true)
+						{
+							liftSnelheid = 2;
+						}
+						else 
+						{
+							liftSnelheid = 0;
+						}
+						
+					}
+					if (parentvar is DerdeLevel)
+					{
+						var derdeLevel:DerdeLevel = parentvar as DerdeLevel;
+						main.checkpoint = "level 3";
+						level = "level3";
+						gravity = 0;
+						
+						if (speler.x >= 789)
+						{
+							removeEventListener(Event.ENTER_FRAME, loop);
+							dispatchEvent(new Event(END_GAME, true));
+						}
 					}
 				}
 				
 				
 				
-				if (speler.y >= 130)
+				if (speler.y >= 140 || crushed == true )
 				{
 					removeEventListener(Event.ENTER_FRAME, loop);
+					dead = true;
+					crushed = false;
 					dispatchEvent(new Event(GAME_OVER, true));
 				}
 			}
 		}
 	}
-}

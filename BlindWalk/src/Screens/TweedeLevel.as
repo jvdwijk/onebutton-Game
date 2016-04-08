@@ -11,7 +11,7 @@ package Screens
 	 */
 	public class TweedeLevel extends MovieClip
 	{
-		private var thePlayer:player = new player;
+		private var thePlayer:player = new player(30,370);
 		private var levelTwee:Level2 = new Level2;
 		private var platformlopen:Platform = new Platform;
 		private var platformlopen2:Platform = new Platform;
@@ -20,7 +20,7 @@ package Screens
 		private var beweging:BewegendPlatform = new BewegendPlatform;
 		
 		public function TweedeLevel() 
-		{
+		{			
 			addChild(thePlayer);
 			addChild(levelTwee);
 			addChild(platformlopen);
@@ -38,6 +38,20 @@ package Screens
 			
 			function loop(e:Event):void
 			{
+				if (thePlayer.x >= 788)
+				{
+					removeChild(thePlayer);
+					removeChild(levelTwee);
+					removeChild(platformlopen);
+					removeChild(platformlopen2);
+					removeChild(beweging);
+				}
+				if (thePlayer.dead == true)
+				{
+					thePlayer.dead = false;
+					removeChilds();
+				}
+				
 				//speler tegen grond #gravity
 				if (thePlayer.hitTestObject(platformlopen) || thePlayer.hitTestObject(platformlopen2) || thePlayer.hitTestObject(beweging)) 
 				{
@@ -46,6 +60,16 @@ package Screens
 				else
 				{
 					onGround = false;
+				}
+				
+				//speler zit op bewegendplatform
+				if (thePlayer.hitTestObject(beweging)) 
+				{
+					thePlayer.lift = true;
+				}
+				else
+				{
+					thePlayer.lift = false;
 				}
 				
 				//bewegend platform naar links en rechts
@@ -58,6 +82,10 @@ package Screens
 					pushback = false;
 				}
 			}
+		}
+		private function removeChilds():void
+		{
+			this.removeChildren();
 		}
 		
 	}
